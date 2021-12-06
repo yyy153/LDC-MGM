@@ -72,11 +72,10 @@ def make_plot(outcat_name, data, lable_num=False):
 
             ax0.plot(Cen1, Cen2, '.', color='red')
             ax0.plot(Peak1, Peak2, '*', color='green')
-            for i in range(outcat.shape[0]):
-
-                ax0.text(Cen1[i], Cen2[i], '%d:%.2f' % (ID[i], Sum[i]), color='r', s=100)
-                ax0.text(Cen1[i], Cen2[i], '%d' % (ID[i]), color='r')
-                ax0.text(Peak1[i], Peak2[i], '%d' % (ID[i]), color='r')
+            if lable_num:  
+                for i in range(outcat.shape[0]):       
+                    ax0.text(Cen1[i], Cen2[i], '%d:%.2f' % (ID[i], Sum[i]), color='r')
+                    ax0.text(Cen1[i], Cen2[i], '%d' % (ID[i]), color='r')
 
         fig.tight_layout()
         plt.xticks([])
