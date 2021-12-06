@@ -410,7 +410,7 @@ def densityCluster_2d(data, para):
             out = out + clump_i
             mask = mask + cl_i * (clump_ii + 1)
             clustPeak[clump_ii, 0] = clump_i.max()
-            clump_Peak[clump_ii, [2, 1, 0]] = np.argwhere(clump_i == clump_i.max())[0]
+            clump_Peak[clump_ii, [1, 0]] = np.argwhere(clump_i == clump_i.max())[0]
             clump_ii += 1
         else:
             pass
