@@ -39,7 +39,7 @@ data_path = r'test/data_3d.fits'
 LDC.localDenCluster(data_path)
 
 ```
-
+![demo](https://github.com/Luoxiaoyu828/LDC-MGM/blob/main/simulated_clump_3d_show.jpg)
 # Citation
 If you use this code in a scientific publication, I would appreciate citation/reference to this repository. 
 
