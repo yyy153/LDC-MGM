@@ -28,7 +28,7 @@ pip install DensityClust-1.0.7.tar.gz
 ```
 or you can install LDC package directly in pypi.com. using:
 ```
-pip install DensityClust==1.0.7
+pip install DensityClust
 ```
 
 # Usage
