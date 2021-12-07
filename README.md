@@ -24,7 +24,7 @@ I suggest you install the code using pip from an Anaconda Python 3 environment. 
 ```
 git clone https://github.com/Luoxiaoyu828/LDC-MGM.git
 cd LDC-MGM/dist
-pip install DensityClust-1.0.7.tar.gz
+pip install DensityClust-1.0.8.tar.gz
 ```
 or you can install LDC package directly in pypi.com. using:
 ```
