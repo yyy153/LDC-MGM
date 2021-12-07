@@ -33,13 +33,22 @@ pip install DensityClust==1.0.7
 
 # Usage
 ```
-from DensityClust import localdensitycluster_mian as LDC
+import DensityClust.LocalDensityClustering_main as LDC
+import astropy.io.fits as fits
+from DensityClust import make_plot
 
-data_path = r'test/data_3d.fits'
-LDC.localDenCluster(data_path)
+para = {"gradmin": 0.01, "rhomin": 0.7, "deltamin": 4, "v_min": 27, "rms": 0.46, "dc": 0.6, "is_plot": 0}
+LDC.localDenCluster(r'data\3d_Clumps\gaussian_out_000.fits', para=para)
+
+# make picture
+data = fits.getdata(r'data\3d_Clumps\gaussian_out_000.fits')
+outcat = r'data\3d_Clumps\gaussian_out_000\LDC_outcat.txt'
+make_plot.make_plot(outcat, data, lable_num=False)
 
 ```
-![demo](https://github.com/Luoxiaoyu828/LDC-MGM/blob/main/simulated_clump_3d_show.jpg)
+<img src="https://github.com/Luoxiaoyu828/LDC-MGM/blob/main/data/2d_Clumps/gaussian2D_out_000/result.png" width="400px">
+
+
 # Citation
 If you use this code in a scientific publication, I would appreciate citation/reference to this repository. 
 
