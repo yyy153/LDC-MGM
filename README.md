@@ -3,7 +3,7 @@ Molecular Clump extraction algorithm based on Local Density Clustering
 
 *Note* The core idea of the algorithm comes from [this paper](https://ui.adsabs.harvard.edu/abs/2014Sci...344.1492R/abstract)
 ```
-Rodriguez A ,  Laio A . Clustering by fast search and find of density peaks[J]. Science, 2014, 344(6191):1492.
+Rodriguez A, Laio A. Clustering by fast search and find of density peaks[J]. Science, 2014, 344(6191):1492.
 ```
 
 ## Dependencies
