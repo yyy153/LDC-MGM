@@ -63,7 +63,9 @@ def densityCluster_3d(data, para):
         ordrho_ii = rho_Ind[ii]
         rho_ii = rho_sorted[ii]   # 第ii大的密度值
         if rho_ii >= rms:
-            delta[ordrho_ii] = maxed
+            delta_ordrho_ii = maxed
+            Gradient_ordrho_ii = 0
+            IndNearNeigh_ordrho_ii = 0
             point_ii_xy = xx[ordrho_ii, :]
             get_value = True  # 判断是否需要在大循环中继续执行，默认需要，一旦在小循环中赋值成功，就不在大循环中运行
             idex, bt = kc_coord_3d(point_ii_xy, size_z, size_y, size_x, k1)
@@ -72,9 +74,9 @@ def densityCluster_3d(data, para):
                 dist_i_j = np.sqrt(((point_ii_xy - item) ** 2).sum())  # 计算两点间的距离
                 gradient = (rho_jj - rho_ii) / dist_i_j
                 if dist_i_j <= delta[ordrho_ii] and gradient >= 0:
-                    delta[ordrho_ii] = dist_i_j
-                    Gradient[ordrho_ii] = gradient
-                    IndNearNeigh[ordrho_ii] = ordrho_jj
+                    delta_ordrho_ii = dist_i_j
+                    Gradient_ordrho_ii = gradient
+                    IndNearNeigh_ordrho_ii = ordrho_jj
                     get_value = False
 
             if get_value:
@@ -85,15 +87,19 @@ def densityCluster_3d(data, para):
                     dist_i_j = np.sqrt(((point_ii_xy - item) ** 2).sum())  # 计算两点间的距离
                     gradient = (rho_jj - rho_ii) / dist_i_j
                     if dist_i_j <= delta[ordrho_ii] and gradient >= 0:
-                        delta[ordrho_ii] = dist_i_j
-                        Gradient[ordrho_ii] = gradient
-                        IndNearNeigh[ordrho_ii] = ordrho_jj
+                        delta_ordrho_ii = dist_i_j
+                        Gradient_ordrho_ii = gradient
+                        IndNearNeigh_ordrho_ii = ordrho_jj
                         get_value = False
 
             if get_value:
                 delta[ordrho_ii] = k2 + 0.0001
                 Gradient[ordrho_ii] = -1
                 IndNearNeigh[ordrho_ii] = ND
+            
+            delta[ordrho_ii] = delta_ordrho_ii
+            Gradient[ordrho_ii] = Gradient_ordrho_ii
+            IndNearNeigh[ordrho_ii] = IndNearNeigh_ordrho_ii
         else:
             IndNearNeigh[ordrho_ii] = ND
 
@@ -136,7 +142,6 @@ def densityCluster_3d(data, para):
         if item >= v_min:
             centInd.append([icl[i], i])
     centInd = np.array(centInd, np.int)
-    mask_grad = np.where(Gradient > gradmin)[0]
 
     # 通过梯度确定边界后，还需要进一步利用最小体积来排除假核
     n_clump = centInd.shape[0]
@@ -146,10 +151,15 @@ def densityCluster_3d(data, para):
     clump_ii = 0
     for i, item in enumerate(centInd):
         rho_cluster_i = np.zeros(ND)
-        index_cluster_i = np.where(clusterInd == (item[1] + 1))[0]   # centInd[i, 1] --> item[1] 表示第i个类中心的编号
+        index_cluster_i = np.where(clusterInd == (item_cent[1] + 1))[0]   # centInd[i, 1] --> item[1] 表示第i个类中心的编号
+        clump_rho = rho[index_cluster_i]
+        rho_max_min = clump_rho.max() - clump_rho.min()
+        Gradient_ = Gradient.copy()
+        grad_clump_i = Gradient_ / rho_max_min
+        mask_grad = np.where(grad_clump_i > gradmin)[0]
         index_cc = np.intersect1d(mask_grad, index_cluster_i)
         rho_cluster_i[index_cluster_i] = rho[index_cluster_i]
-        rho_cc_mean = rho[index_cc].mean() * 0.2
+        rho_cc_mean = rho[index_cc].mean()
         index_cc_rho = np.where(rho_cluster_i > rho_cc_mean)[0]
         index_cluster_rho = np.union1d(index_cc, index_cc_rho)
 
@@ -161,7 +171,6 @@ def densityCluster_3d(data, para):
         for j, item in enumerate(cl_1_index_):
             cl_i[item[2], item[1], item[0]] = 1
         # 形态学处理
-        # cl_i = morphology.closing(cl_i)  # 做开闭运算会对相邻两个云核的掩膜有影响
         L = ndimage.binary_fill_holes(cl_i).astype(int)
         L = measure.label(L)  # Labeled input image. Labels with value 0 are ignored.
         STATS = measure.regionprops(L)
