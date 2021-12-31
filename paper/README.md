@@ -31,7 +31,6 @@ This repo provides a clean implementation of LDC algorithm using all the best pr
 - 将制作成单个的仿真云核(不截断)，随机的选取15个仿真分子云核任意的放入，超出13CO数据块边界的部分去掉。
 - 总的仿真云核个数：10000个
 
-![demo](https://github.com/Luoxiaoyu828/LDC-MGM/blob/main/simulated_clump_3d_show.jpg)
 
 ## 算法参数设置
 
