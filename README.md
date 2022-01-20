@@ -53,12 +53,19 @@ make_plot.make_plot(outcat, data, lable_num=False)
 If you use this code in a scientific publication, I would appreciate citation/reference to this repository. 
 
 ```
-@misc{luo2021molecular,
-      title={Molecular Clump Extraction Algorithm Based on Local Density Clustering}, 
-      author={Xiaoyu Luo and Sheng Zheng and Yao Huang and Shuguang Zeng and Xiangyun Zeng and Zhibo Jiang and Zhiwei Chen},
-      year={2021},
-      eprint={2110.11620},
-      archivePrefix={arXiv},
-      primaryClass={astro-ph.IM}
-      }
+@ARTICLE{2021arXiv211011620L,
+       author = {{Luo}, Xiaoyu and {Zheng}, Sheng and {Huang}, Yao and {Zeng}, Shuguang and {Zeng}, Xiangyun and {Jiang}, Zhibo and {Chen}, Zhiwei},
+        title = "{Molecular Clump Extraction Algorithm Based on Local Density Clustering}",
+      journal = {arXiv e-prints},
+     keywords = {Astrophysics - Instrumentation and Methods for Astrophysics},
+         year = 2021,
+        month = oct,
+          eid = {arXiv:2110.11620},
+        pages = {arXiv:2110.11620},
+archivePrefix = {arXiv},
+       eprint = {2110.11620},
+ primaryClass = {astro-ph.IM},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2021arXiv211011620L},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
 ```
